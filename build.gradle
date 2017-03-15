@@ -32,6 +32,9 @@ configurations{
 	provided
 }
 
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
 sourceSets {
     main {
         compileClasspath += configurations.provided 
@@ -50,7 +53,7 @@ eclipse {
 
 war {
     baseName = 'RestApp'
-    version = 'v1-' + LocalDate().now().toString();
+    version = 'v1-' + System.currentTimeMillis();
 }
 
 dependencies {
