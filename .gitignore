@@ -1,2 +1,12 @@
-/.gradle/
-/bin/
+#gradle
+/.gradle
+/build
+
+#eclipse
+/bin
+/.settings
+.classpath
+.project
+
+#arquivos que foram editados
+*~
