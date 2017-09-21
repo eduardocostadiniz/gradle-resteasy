@@ -10,3 +10,9 @@
 
 #arquivos que foram editados
 *~
+
+#java
+.class
+.war
+.jar
+.ear
