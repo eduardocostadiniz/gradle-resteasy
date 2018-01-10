@@ -77,6 +77,10 @@ dependencies {
 	
 	//MySQL
 	compile 'mysql:mysql-connector-java:5.1.39'
+	
+	//Apache POI
+	compile group: 'org.apache.poi', name: 'poi', version: '3.17'
+	
 
 }
 

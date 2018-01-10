@@ -1,5 +1,6 @@
 package br.com.gradleresteasy.servicos;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,10 +16,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
 
 import br.com.gradleresteasy.entidades.Usuario;
+import br.com.gradleresteasy.utils.ExportacaoUtils;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/usuario")
@@ -84,5 +88,42 @@ public class UsuarioServico implements CrudServico<Usuario> {
 	public Usuario ativos() {
 		return new Usuario(1, "Eduardo Costa Diniz", "teste@gmail.com", "senharoot");
 	}
+	
 
+	@GET
+	@Path("/exportacao")
+	public Response exportar() throws IOException {
+		
+		LOGGER.log(Level.INFO, "Gerando relatório XLS!!!");
+		
+		List<Usuario> usuarios = new ArrayList<>();
+
+		Usuario u1 = new Usuario(1, "Usuario 1", "Email 1", "Senha 1");
+		Usuario u2 = new Usuario(2, "Usuario 2", "Email 2", "Senha 2");
+		Usuario u3 = new Usuario(3, "Usuario 3", "Email 3", "Senha 3");
+
+		usuarios.add(u1);
+		usuarios.add(u2);
+		usuarios.add(u3);
+
+		final String[] cabecalhos = { "ID", "NOME", "EMAIL", "SENHA" };
+
+		ExportacaoUtils exportar = new ExportacaoUtils(gerarListaDeStrings(usuarios), cabecalhos, "ExportacaoUsuarios");
+		
+		return exportar.gerarRelatorioXls();
+		
+	}
+
+	public static List<String[]> gerarListaDeStrings(List<Usuario> lista) {
+		List<String[]> listaTemp = new ArrayList<>();
+
+		for (Usuario usuario : lista) {
+			String[] string = { usuario.getId().toString(), usuario.getNome(), usuario.getEmail(), usuario.getSenha() };
+
+			listaTemp.add(string);
+		}
+
+		return listaTemp;
+	}
+	
 }
