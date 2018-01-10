@@ -13,12 +13,12 @@ import org.apache.poi.ss.usermodel.Row;
 
 /**
  * @author eduardoc
- * 
- * Classe utilitaria para gerar arquivos xls (Excel)
  *
+ * Classe responsável por gerar arquivos xls e exportar para o usuario 
  */
 public class ExportacaoUtils {
 
+	private static final String NOME_PADRAO_PLANILHA = "RelatorioExportacao";
 	private static final String NOME_PADRAO_FOLHA = "Folha Principal";
 	private static final String EXTENSAO_EXCEL = ".xls";
 	private static final short INDICE_LINHA_CABECALHO = 0;
@@ -28,43 +28,66 @@ public class ExportacaoUtils {
 
 	private List<String[]> registros;
 	private String[] cabecalhos;
+	private int[] tamanhoColunas;
 	private String nomeRelatorio;
 	private String nomeFolha;
 
-	public ExportacaoUtils() {
-		super();
-	}
-
-	public ExportacaoUtils(List<String[]> registros, String[] cabecalhos, String nomeRelatorio) {
+	/**
+	 * Construtor da classe
+	 */
+	public ExportacaoUtils(List<String[]> registros, String[] cabecalhos, int[] tamanhoColunas) {
 		super();
 		this.registros = registros;
 		this.cabecalhos = cabecalhos;
+		this.tamanhoColunas = tamanhoColunas;
+		this.nomeRelatorio = NOME_PADRAO_PLANILHA + EXTENSAO_EXCEL;
+		this.nomeFolha = NOME_PADRAO_FOLHA;
+	}
+
+	public ExportacaoUtils(List<String[]> registros, String[] cabecalhos, int[] tamanhoColunas, String nomeRelatorio) {
+		super();
+		this.registros = registros;
+		this.cabecalhos = cabecalhos;
+		this.tamanhoColunas = tamanhoColunas;
 		this.nomeRelatorio = nomeRelatorio + EXTENSAO_EXCEL;
 		this.nomeFolha = NOME_PADRAO_FOLHA;
 	}
 
-	public ExportacaoUtils(List<String[]> registros, String[] cabecalhos, String nomeRelatorio, String nomeFolha) {
+	public ExportacaoUtils(List<String[]> registros, String[] cabecalhos, int[] tamanhoColunas, String nomeRelatorio,
+			String nomeFolha) {
 		super();
 		this.registros = registros;
 		this.cabecalhos = cabecalhos;
+		this.tamanhoColunas = tamanhoColunas;
 		this.nomeRelatorio = nomeRelatorio + EXTENSAO_EXCEL;
 		this.nomeFolha = nomeFolha;
 	}
 
+	/**
+	 * Método responsável por construir a estrutura da planilha, inserir os
+	 * dados e retornar para o usuario o arquivo excel
+	 *
+	 * @return arquivo da planilha excel
+	 * @throws IOException
+	 *             uma excecao eh lancada caso alguma problema aconteca
+	 */
 	public Response gerarRelatorioXls() throws IOException {
 
 		// Criar a pasta de trabalho e a folha principal
 		HSSFWorkbook workbookExcel = new HSSFWorkbook();
-		HSSFSheet folha = workbookExcel.createSheet(nomeFolha);
+		HSSFSheet folhaPrincipal = workbookExcel.createSheet(nomeFolha);
 		ByteArrayOutputStream baos = null;
 
 		try {
 			// inserir cabecalho planilha
-			inserirCabecalhoPlanilha(folha);
+			inserirCabecalhoPlanilha(folhaPrincipal);
 
 			// inserir os registros na planilha
-			inserirRegistrosPlanilha(folha);
-			
+			inserirRegistrosPlanilha(folhaPrincipal);
+
+			// configurar o tamanho das colunas
+			setarTamanhoColunas(folhaPrincipal);
+
 			// copia os dados da planilha para o vetor de bytes
 			baos = new ByteArrayOutputStream();
 			workbookExcel.write(baos);
@@ -85,6 +108,12 @@ public class ExportacaoUtils {
 
 	}
 
+	/**
+	 * Método responsável por inserir os nomes das colunas na planilha
+	 *
+	 * @param folhaParam
+	 *            folha da planilha que ira receber o nome das colunas
+	 */
 	private void inserirCabecalhoPlanilha(HSSFSheet folhaParam) {
 		Row linhaCabecalho = folhaParam.createRow(INDICE_LINHA_CABECALHO);
 
@@ -96,6 +125,12 @@ public class ExportacaoUtils {
 		}
 	}
 
+	/**
+	 * Método responsável por inserir os registros na planilha
+	 *
+	 * @param folhaParam
+	 *            folha da planilha que ira receber os registros
+	 */
 	public void inserirRegistrosPlanilha(HSSFSheet folhaParam) {
 
 		int contadorLinhaRegistros = INDICE_LINHA_REGISTROS;
@@ -111,8 +146,20 @@ public class ExportacaoUtils {
 		}
 	}
 
-	public void configurarTamanhoColunas() {
+	/**
+	 * Método responsável por setar o tamanho das colunas baseado em uma
+	 * constante de tamanhos no modelo
+	 *
+	 * @param folhaParam
+	 *            a folha da planilha que sera configurada o tamanho das colunas
+	 */
+	public void setarTamanhoColunas(HSSFSheet folhaParam) {
 
+		int contadorCelulaCabecalho = INDICE_CELULA_CABECALHO;
+
+		for (int i = 0; i < cabecalhos.length; i++) {
+			folhaParam.setColumnWidth(contadorCelulaCabecalho++, (tamanhoColunas[i] * 256));
+		}
 	}
 
 }
