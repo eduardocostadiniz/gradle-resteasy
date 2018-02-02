@@ -1,6 +1,17 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<filter>
+		<description>
+		</description>
+		<display-name>InterceptadorRequisicao</display-name>
+		<filter-name>InterceptadorRequisicao</filter-name>
+		<filter-class>br.com.gradleresteasy.utils.InterceptadorRequisicao</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>InterceptadorRequisicao</filter-name>
+		<url-pattern>/InterceptadorRequisicao</url-pattern>
+	</filter-mapping>
 
 	<resource-ref>
 		<description>AppRest Connection</description>
