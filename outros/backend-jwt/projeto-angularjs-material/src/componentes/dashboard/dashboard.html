@@ -1,0 +1,40 @@
+<div>
+  <h1 class="texto-app">{{dashboardMensagem}}</h1>
+
+  <md-table-container>
+    <table md-table>
+      <thead md-head md-order="id">
+        <th md-column md-order-by="id">ID</th>
+        <th md-column>Nome</th>
+        <th md-column>E-mail</th>
+      </thead>
+      <tbody md-body>
+        <tr md-row ng-repeat="item in itens | orderBy: id| limitTo: limiteLinhas: (nroPagina - 1) * limiteLinhas">
+          <td md-cell>{{item.id}}</td>
+          <td md-cell>{{item.nome}}</td>
+          <td md-cell>{{item.email}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+  <!-- <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page"
+    md-total="{{items.lenght}}" md-on-paginate="getitems" md-page-select>
+  </md-table-pagination> -->
+  <!-- <md-table-pagination md-label="{page: 'Página:', rowsPerPage: 'Linhas por página:', of: 'de'}" md-limit-options="[5, 10, 15]" md-total="{{itens.length}}"
+    md-page="query.page" md-page-select>
+  </md-table-pagination> -->
+  <md-table-pagination md-limit="limiteLinhas" md-page="nroPagina" md-total="{{itens.length}}"></md-table-pagination>
+
+  <hr>
+
+  <md-button ng-click="listarDashboard()" class="md-primary md-raised">Listar Dashboard</md-button>
+  <a ui-sref="logout" class="md-button md-icon-button md-primary">
+    <md-icon aria-label="."><i class="material-icons">input</i></md-icon>
+  </a>
+
+  <hr>
+
+  rootScopeUsuario = <small><small>{{token}}</small></small> <br>
+
+
+</div>

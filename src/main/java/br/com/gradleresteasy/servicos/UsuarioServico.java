@@ -134,9 +134,9 @@ public class UsuarioServico implements CrudServico<Usuario> {
 		usuarios.add(u2);
 		usuarios.add(u3);
 
-		final String[] cabecalhos = { "ID", "NOME", "EMAIL", "SENHA" };
+		//final String[] cabecalhos = { "ID", "NOME", "EMAIL", "SENHA" };
 
-		ExportacaoUtils exportar = new ExportacaoUtils(gerarListaDeStrings(usuarios), cabecalhos, "ExportacaoUsuarios");
+		ExportacaoUtils exportar = new ExportacaoUtils();
 		
 		return exportar.gerarRelatorioXls();
 		
