@@ -12,7 +12,10 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -21,9 +24,11 @@ import javax.ws.rs.core.Response;
 import org.jboss.logging.Logger;
 import org.jboss.logging.Logger.Level;
 
+import br.com.gradleresteasy.entidades.FiltroParametros;
 import br.com.gradleresteasy.entidades.Usuario;
 import br.com.gradleresteasy.utils.ExportacaoUtils;
 
+@Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/usuario")
 public class UsuarioServico implements CrudServico<Usuario> {
@@ -89,12 +94,35 @@ public class UsuarioServico implements CrudServico<Usuario> {
 		return new Usuario(1, "Eduardo Costa Diniz", "teste@gmail.com", "senharoot");
 	}
 	
-
 	@GET
-	@Path("/exportacao")
-	public Response exportar() throws IOException {
+	@Path("/consultar")
+	public List<Usuario> listarUser(@BeanParam FiltroParametros filtroParametros) {
 		
+		LOGGER.log(Level.INFO, "Consultando os usuarios!!!");
+		LOGGER.log(Level.INFO, filtroParametros.toString());
+		LOGGER.log(Level.INFO, "");
+		
+		List<Usuario> usuarios = new ArrayList<>();
+
+		Usuario u1 = new Usuario(1, "Usuario 1", "Email 1", "Senha 1");
+		Usuario u2 = new Usuario(2, "Usuario 2", "Email 2", "Senha 2");
+		Usuario u3 = new Usuario(3, "Usuario 3", "Email 3", "Senha 3");
+
+		usuarios.add(u1);
+		usuarios.add(u2);
+		usuarios.add(u3);
+		
+		return usuarios;		
+	}
+	
+
+	@POST
+	@Path("/exportacao")
+	public Response exportar(FiltroParametros filtroParametros) throws IOException {
+
 		LOGGER.log(Level.INFO, "Gerando relatório XLS!!!");
+		LOGGER.log(Level.INFO, filtroParametros.toString());
+		LOGGER.log(Level.INFO, "");
 		
 		List<Usuario> usuarios = new ArrayList<>();
 
