@@ -89,8 +89,8 @@ public class ExportacaoUtils {
 	 *            o alinhamento da celula dos registros (esquerda, direita ou
 	 *            central)
 	 * @param alinhamentosCelulasTotatlizadores
-	 *            o alinhamento da celula dos totalizadores (esquerda, direita
-	 *            ou central)
+	 *            o alinhamento da celula dos totalizadores (esquerda, direita ou
+	 *            central)
 	 * @param coresCelulas
 	 *            a cor das celulas definidas
 	 */
@@ -151,8 +151,8 @@ public class ExportacaoUtils {
 	}
 
 	/**
-	 * Método responsável por construir a estrutura da planilha, inserir os
-	 * dados e retornar para o usuario o arquivo excel
+	 * Método responsável por construir a estrutura da planilha, inserir os dados e
+	 * retornar para o usuario o arquivo excel
 	 *
 	 * @return arquivo da planilha excel
 	 * @throws IOException
@@ -224,8 +224,7 @@ public class ExportacaoUtils {
 	}
 
 	/**
-	 * Método responsável por ajustar o alinhamento de cada celula da planilha
-	 * excel
+	 * Método responsável por ajustar o alinhamento de cada celula da planilha excel
 	 *
 	 * @param workbookExcel
 	 *            a pasta de trabalho que sera criado o estilo
@@ -325,8 +324,8 @@ public class ExportacaoUtils {
 	}
 
 	/**
-	 * Método responsável por setar o tamanho das colunas baseado em uma
-	 * constante de tamanhos no modelo
+	 * Método responsável por setar o tamanho das colunas baseado em uma constante
+	 * de tamanhos no modelo
 	 *
 	 * @param folhaParam
 	 *            a folha da planilha que sera configurada o tamanho das colunas
@@ -341,8 +340,7 @@ public class ExportacaoUtils {
 	}
 
 	/**
-	 * Método responsável por formatar o valor decimal para um formato
-	 * especifico
+	 * Método responsável por formatar o valor decimal para um formato especifico
 	 *
 	 * @param padraoFormato
 	 *            formato que o valor decimal sera formatado
@@ -367,9 +365,8 @@ public class ExportacaoUtils {
 	 * padrao de formatacao de datas
 	 *
 	 * @param formato
-	 *            formato que a data deve ser formatada, caso o formato seja
-	 *            nulo ou vazio, o padrao de formatacao de datas do financeiro
-	 *            sera usado
+	 *            formato que a data deve ser formatada, caso o formato seja nulo ou
+	 *            vazio, o padrao de formatacao de datas do financeiro sera usado
 	 * @param data
 	 *            a data que deve ser formatada pelo padrao
 	 * @return a data formatada no padrao fornecido como String

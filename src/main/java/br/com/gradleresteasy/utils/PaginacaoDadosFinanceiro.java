@@ -1,4 +1,4 @@
-package br.com.softbox.ivendas.financeiro.utils;
+package br.com.gradleresteasy.utils;
 
 import java.math.BigDecimal;
 import java.util.List;
